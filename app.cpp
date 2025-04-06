@@ -58,6 +58,9 @@ void viewExpenses(const vector<Expense> &expenses) {
     
     for (const auto &exp : expenses) {
         cout << setw(12) << exp.date << setw(10) << exp.amount << setw(15) << exp.category << setw(20) << exp.description << "\n";
+																  
+										
+													
     }
 }
 
@@ -128,12 +131,13 @@ void totalExpenses(const vector<Expense> &expenses) {
 /**
  * The Main program
 */
+
 int main() {
     vector<Expense> expenses;
     int choice;
 
-    do {
-        cout << "\nExpense Tracker Menu (Please choose via number) \n";
+    while (true) {
+        cout << "\n========== Expense Tracker Menu ==========\n";
         cout << "1. Add Expense\n";
         cout << "2. View All Expenses\n";
         cout << "3. Filter by Category\n";
@@ -141,46 +145,49 @@ int main() {
         cout << "5. Total Expenses by Category\n";
         cout << "6. Total Overall Expenses\n";
         cout << "7. Exit\n";
-        cout << "Enter choice: ";
+        cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1:
-                addExpense(expenses);
-                break;
-            case 2:
-                viewExpenses(expenses);
-                break;
-            case 3: {
-                cout << "Enter category to filter: ";
-                string category;
-                cin.ignore();
-                getline(cin, category);
-                filterByCategory(expenses, category);
-                break;
-            }
-            case 4: {
-                string startDate, endDate;
-                cout << "Enter start date (YYYY-MM-DD): ";
-                cin >> startDate;
-                cout << "Enter end date (YYYY-MM-DD): ";
-                cin >> endDate;
-                filterByDateRange(expenses, startDate, endDate);
-                break;
-            }
-            case 5:
-                totalByCategory(expenses);
-                break;
-            case 6:
-                totalExpenses(expenses);
-                break;
-            case 7:
-                cout << "Exiting...\n";
-                break;
-            default:
-                cout << "Invalid choice, please try again.\n";
+        if (choice == 1) {
+				   
+            addExpense(expenses);
         }
-    } while (choice != 7);
+        else if (choice == 2) {
+            viewExpenses(expenses);
+        }
+        else if (choice == 3) {
+            cin.ignore();
+            string category;
+            cout << "Enter category to filter: ";
+								
+							 
+            getline(cin, category);
+            filterByCategory(expenses, category);
+					  
+        }
+        else if (choice == 4) {
+            string startDate, endDate;
+            cout << "Enter start date (YYYY-MM-DD): ";
+            cin >> startDate;
+            cout << "Enter end date (YYYY-MM-DD): ";
+            cin >> endDate;
+            filterByDateRange(expenses, startDate, endDate);
+					  
+        }
+        else if (choice == 5) {
+            totalByCategory(expenses);
+        }
+        else if (choice == 6) {
+            totalExpenses(expenses);
+        }
+        else if (choice == 7) {
+            cout << "Exiting... Thank you!\n";
+            break;
+        }
+        else {
+            cout << "Invalid choice. Please try again.\n";
+        }
+    }
 
     return 0;
 }
